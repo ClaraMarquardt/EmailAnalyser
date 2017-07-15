@@ -1,20 +1,48 @@
-# loading packages
-library(twitteR)
-library(ROAuth)
-library(tidyverse)
-library(text2vec)
-library(caret)
-library(glmnet)
-library(ggrepel)
+#----------------------------------------------------------------------------#
 
-package_list <- list("twitteR","ROAuth","tidyverse","text2vec","caret","glmnet","ggrepel")
- load_or_install(package_list)
+# Purpose:     Master Execution Script
+# Author:      CM
+# Date:        Jan 2017
+# Language:    R (.R)
+
+#----------------------------------------------------------------------------#
+
+
+#----------------------------------------------------------------------------#
+#                               Control Section                              #
+#----------------------------------------------------------------------------#
+
+# set-up
+#-------------------------------------------------#
+print(Sys.time())
+current_date <- as.character(format(Sys.time(), "%d/%m/%Y")) 
+start_time <- Sys.time()
+
+# command line arguments
+#-------------------------------------------------#
+init_path                <- commandArgs(trailingOnly = TRUE)[1]
+execution_id             <- commandArgs(trailingOnly = TRUE)[5]
+
+# dependencies
+#-------------------------------------------------#
+source(paste0(init_path, "/R_init.R"))
+
+# parameters / helpers
+#-------------------------------------------------#
+
+
+#----------------------------------------------------------------------------#
+#                                    Code                                    #
+#----------------------------------------------------------------------------#
+
+# train the model
+#----------------------------------------------------------------------------#
+
 ### loading and preprocessing a training set of tweets
 # function for converting some symbols
 conv_fun <- function(x) iconv(x, "latin1", "ASCII", "")
  
 ##### loading classified tweets ######
-# source: http://help.sentiment140.com/for-students/
 # 0 - the polarity of the tweet (0 = negative, 4 = positive)
 # 1 - the id of the tweet
 # 2 - the date of the tweet
@@ -88,6 +116,9 @@ glmnet_classifier <- cv.glmnet(x = dtm_train_tfidf,
  # again lower number of iterations for faster training
  maxit = 1e3)
 print(difftime(Sys.time(), t1, units = 'mins'))
+
+# assess the model
+#----------------------------------------------------------------------------#
  
 plot(glmnet_classifier)
 print(paste("max AUC =", round(max(glmnet_classifier$cvm), 4)))
@@ -95,5 +126,13 @@ print(paste("max AUC =", round(max(glmnet_classifier$cvm), 4)))
 preds <- predict(glmnet_classifier, dtm_test_tfidf, type = 'response')[ ,1]
 auc(as.numeric(tweets_test$sentiment), preds)
  
+# save the model
+#----------------------------------------------------------------------------#
+
 # save the model for future using
 saveRDS(glmnet_classifier, 'glmnet_classifier.RDS')
+
+#----------------------------------------------------------------------------#
+#                                    End                                     #
+#----------------------------------------------------------------------------#
+

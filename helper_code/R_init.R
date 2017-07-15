@@ -98,7 +98,8 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
 # external dependencies
 # ---------------------------------------
 package_list <-list("devtools", "dplyr", "data.table","stringr","lubridate",
-  "tidyr", "reshape", "reshape2", "xlsxjars", "xlsx","zoo")
+  "tidyr", "reshape", "reshape2", "xlsxjars", "xlsx","zoo","caret","text2vec",
+  "glmnet","ggrepel","tidyverse")
 load_or_install(package_list)
 
 # ---------------------------------------
