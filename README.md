@@ -15,7 +15,7 @@
 
 #### OPTION A - Interactive Mode
 ````
-cd email_sentiment                           # navigate to the 'email\_sentiment' directory
+cd [local path]/email_sentiment              # navigate to the 'email_sentiment' directory
 source code/machine_code/execution_master.sh # start the tool
 
 ````
