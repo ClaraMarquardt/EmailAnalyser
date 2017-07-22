@@ -1,4 +1,4 @@
-# email_sentiment
+# How am I doing? Email-Based Sentiment Analysis
 
 ### Requirements
 --------------------------------
