@@ -1,4 +1,5 @@
-# How am I doing? Email-Based Sentiment Analysis
+# How am I doing? 
+_Email-Based Sentiment Analysis_
 
 ### Requirements
 --------------------------------
