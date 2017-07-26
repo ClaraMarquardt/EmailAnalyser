@@ -35,8 +35,10 @@ cd [local path]/email_sentiment                           # navigate to the 'ema
 source code/machine_code/execution_master_cron_initial.sh # set-up the reoccurring job
 
 # Note
-* You may initially be prompted for a password ("Password: ") - enter the root password (this is required to set up the regular execution of the script)
-* Your email username and password will be stored in a *_root-access_* only text file located in the email_sentiment directory
+* You may initially be prompted for a password ("Password: ") - 
+enter the root password (this is required to set up the regular execution of the script)
+* Your email username and password will be stored in a **_root access-only_**
+ text file located in the _email_sentiment_ directory
 * Job will execute at noon on the selected weekday 
 * Job will only execute if the computer is turned on 
 
