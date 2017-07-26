@@ -107,15 +107,15 @@ if($emails) {
 
         /* mark as read */
         $status = imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged"); 
-
         $header = imap_header($inbox, $email_number);
         $email_date_actual = date_create($header->date);
         $email_date_actual = date_format($email_date_actual,"d_m_Y");
+        $recipient = $header->toaddress;
+        $recipient = str_replace(' ', '_', $recipient);
         
         /* get mail structure */
         $structure_raw = imap_fetchstructure($inbox, $email_number);
         $structure_flat = flattenParts($structure_raw->parts);
-
 
         /* loop over parts */
         $i = 0;
@@ -128,7 +128,7 @@ if($emails) {
             
                 $message = getPart($inbox, $email_number, $partNumber, $part->encoding);
  
-                $filepath = $folder_output_outbox ."/email_" . "$email_number" . "_" . "$i" . "__" . "$email_date_actual" . ".txt";
+                $filepath = $folder_output_outbox ."/email_" . "$email_number" . "_" . "$i" . "__" . "$email_date_actual" . "__" . $recipient . ".txt";
 
                 $fp = fopen($filepath,"w+");
                 fwrite($fp, $message);

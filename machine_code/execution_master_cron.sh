@@ -9,11 +9,23 @@
 
 # Settings
 #----------------------------------------------------------------------------#
+## read in saved settings
+printf "\n# Settings\n\n"
+
+cd ${wd_path_helper_cron}
+chmod a+rwx cron_user_setting
+while read -r line
+do
+    eval $line
+done < cron_user_setting
+chmod a-rwx cron_user_setting && chmod o+rwx cron_user_setting 
+cd ${wd_path}
+
 printf "\n# Initialising\n\n"
 source code/machine_code/setting.sh 
 
-printf "\n# Settings\n\n"
-source code/machine_code/user_setting.sh 
+## update date
+export email_date=$(date -v -${length}d +"%d-%B-%Y") 
 
 #----------------------------------------------------------------------------#
 #                         Step-by-Step Tool Execution                        #
@@ -65,7 +77,23 @@ ${wd_path_helper_email} ${wd_path_log}" aggregate.R ${wd_path_log}/aggregate_${e
 ## delete output file
 [ -e .RData ] && rm .RData
 
-# Stage-b (iii): Clear 
+# Stage-c: Send email
+#----------------------------------------------------------------------------#
+printf "\n# Sending Email\n"
+
+# execute
+#---------------------------------------------------#
+cd ${wd_path_code}/stage_c
+
+## obtain file names
+email_report_file=$(ls ${data_path_temp}/*report_${execution_id}*)
+export email_report=$(cat $email_report_file)
+export email_plot=$(ls ${data_path_temp}/*mean_plot_${execution_id}*)
+
+## aggregate
+php_custom "send_email.php"
+
+# Stage-d: Clear 
 #----------------------------------------------------------------------------#
 printf "\n# Clearing Data\n"
 
@@ -75,8 +103,6 @@ rm email*txt
 
 ## move output to location & delete all data
 cd ${data_path_temp}
-mv *mean_plot_${execution_id}* ~/Desktop/how_am_I_doing_plot_${current_date}.pdf
-mv *report_${execution_id}* ~/Desktop/how_am_I_doing_report_${current_date}.txt
 rm *${execution_id}*
 
 ## delete log files
@@ -85,7 +111,7 @@ rm *${execution_id}*
 
 # Stage-d: Output
 #----------------------------------------------------------------------------#
-printf "\n# Completed - See the report & graph at ~/Desktop/\n"
+printf "\n# Completed\n"
 cd ${wd_path}
 
 #----------------------------------------------------------------------------#

@@ -58,9 +58,10 @@ tweets_test     <- model_comp$tweets_test
 
 ### loop over email
 #-----------------------------
-sentiment_score <- c()
-email_date      <- c()
-email_id        <- c() 
+sentiment_score     <- c()
+email_date          <- c()
+email_id            <- c() 
+recipient           <- c() 
 
 email_list_raw  <- list.files(email_data_path_outbox)
 
@@ -74,7 +75,11 @@ for (i in 1:length(email_list_raw)) {
 	tfidf_temp        <- copy(tfidf)
 
 	# obtain the date 
-	date_temp   <- gsub("(.*)(__)(.*)(\\.txt)", "\\3", email)
+	date_temp   <- gsub("(.*)(__)(.*)(__)(.*)(\\.txt)", "\\3", email)
+
+	# obtain the recipient
+	recipient_temp   <- gsub("(.*)(__)(.*)(__)(.*)(\\.txt)", "\\5", email)
+	recipient_temp   <- gsub("(.*)(<)(.*)(>)", "\\3", recipient_temp)
 
 	# read in the email
 	email_text  <- readLines(paste0(email_data_path_outbox,"/",email))
@@ -121,7 +126,9 @@ for (i in 1:length(email_list_raw)) {
 			# store 
 			sentiment_score <- c(sentiment_score, pred_temp)
 			email_date      <- c(email_date, date_temp)
+			recipient       <- c(recipient, recipient_temp)
 			email_id        <- c(email_id,email)
+
 		
 		}
 	}
@@ -134,8 +141,9 @@ for (i in 1:length(email_list_raw)) {
 
 ### save score
 #-----------------------------
-sentiment_dt <- data.table(id=email_id, date=email_date, score=sentiment_score)
-sentiment_dt <- unique(sentiment_dt, by=c("date", "score"))
+sentiment_dt <- data.table(id=email_id, date=email_date, score=sentiment_score, 
+	recipient=recipient)
+sentiment_dt <- unique(sentiment_dt, by=c("date", "score", "recipient"))
 
 saveRDS(sentiment_dt, paste0(temp_data_path, "/score_table_", 
 	execution_id, ".Rds"))
