@@ -32,7 +32,7 @@ printf "\n# Obtaining Emails\n"
 # execute
 #---------------------------------------------------#
 cd ${wd_path_code}/stage_a
-php_custom "email_extract.php"
+${php_custom_path} -c ${php_custom_path_ini} -f "email_extract.php"
 
 # Stage-b (i): Process emails
 #----------------------------------------------------------------------------#
@@ -44,7 +44,7 @@ cd ${wd_path_code}/stage_b
 
 ## classify
 R CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_train} \
-${data_path_raw_outbox} ${data_path_temp} ${wd_path_log} ${wd_path_model}" classify.R \
+${data_path_raw_outbox} ${data_path_temp} ${wd_path_log} ${wd_path_model} ${lib_path}" classify.R \
 ${wd_path_log}/classify_${execution_id}.Rout
 
 ## delete output file
@@ -60,7 +60,7 @@ cd ${wd_path_code}/stage_b
 
 ## aggregate
 R CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_temp} \
-${wd_path_helper_email} ${wd_path_log}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
+${wd_path_helper_email} ${wd_path_log} ${lib_path}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
 
 ## delete output file
 [ -e .RData ] && rm .RData
@@ -75,8 +75,8 @@ rm email*txt
 
 ## move output to location & delete all data
 cd ${data_path_temp}
-mv *mean_plot_${execution_id}* ~/Desktop/how_am_I_doing_plot_${current_date}.pdf
-mv *report_${execution_id}* ~/Desktop/how_am_I_doing_report_${current_date}.txt
+mv *mean_plot_${execution_id}* $HOME/how_am_I_doing_plot_${current_date}.pdf
+mv *report_${execution_id}* $HOME/how_am_I_doing_report_${current_date}.txt
 rm *${execution_id}*
 
 ## delete log files
@@ -85,7 +85,7 @@ rm *${execution_id}*
 
 # Stage-d: Output
 #----------------------------------------------------------------------------#
-printf "\n# Completed - See the report & graph at ~/Desktop/\n"
+printf "\n# Completed - See the report & graph at $HOME/\n"
 cd ${wd_path}
 
 #----------------------------------------------------------------------------#

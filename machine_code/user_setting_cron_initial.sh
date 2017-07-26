@@ -39,14 +39,15 @@ printf "\n###\n"
 
 ## store wd
 export wd_path=$(pwd)
+export R_path=$(which R)
 
 ## save user settings 
 [ -e ${wd_path_helper_cron}/cron_user_setting ] && chmod +rwx ${wd_path_helper_cron}/cron_user_setting \
 	&& rm ${wd_path_helper_cron}/cron_user_setting
 
-for var in weekday length email_address email_pwd wd_path
+for var in weekday length email_address email_pwd wd_path R_path
 do
-    echo "$var="'"'"$(eval echo '$'"$var")"'"'
+    echo "export $var="'"'"$(eval echo '$'"$var")"'"'
 done >> ${wd_path_helper_cron}/cron_user_setting
 
 ## set to root access

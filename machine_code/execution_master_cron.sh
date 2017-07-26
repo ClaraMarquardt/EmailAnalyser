@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #----------------------------------------------------------------------------#
 
 # Purpose:     Master Execution Script
@@ -12,7 +14,6 @@
 ## read in saved settings
 printf "\n# Settings\n\n"
 
-cd ${wd_path_helper_cron}
 chmod a+rwx cron_user_setting
 while read -r line
 do
@@ -44,7 +45,8 @@ printf "\n# Obtaining Emails\n"
 # execute
 #---------------------------------------------------#
 cd ${wd_path_code}/stage_a
-php_custom "email_extract.php"
+echo "$(which php)"
+${php_custom_path} -c ${php_custom_path_ini} -f "email_extract.php"
 
 # Stage-b (i): Process emails
 #----------------------------------------------------------------------------#
@@ -55,8 +57,8 @@ printf "\n# Classifying Emails\n"
 cd ${wd_path_code}/stage_b
 
 ## classify
-R CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_train} \
-${data_path_raw_outbox} ${data_path_temp} ${wd_path_log} ${wd_path_model}" classify.R \
+${R_path} CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_train} \
+${data_path_raw_outbox} ${data_path_temp} ${wd_path_log} ${wd_path_model} ${lib_path}" classify.R \
 ${wd_path_log}/classify_${execution_id}.Rout
 
 ## delete output file
@@ -71,8 +73,8 @@ printf "\n# Generating Report\n"
 cd ${wd_path_code}/stage_b
 
 ## aggregate
-R CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_temp} \
-${wd_path_helper_email} ${wd_path_log}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
+${R_path} CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_temp} \
+${wd_path_helper_email} ${wd_path_log} ${lib_path}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
 
 ## delete output file
 [ -e .RData ] && rm .RData
@@ -91,7 +93,7 @@ export email_report=$(cat $email_report_file)
 export email_plot=$(ls ${data_path_temp}/*mean_plot_${execution_id}*)
 
 ## aggregate
-php_custom "send_email.php"
+${php_custom_path} -c ${php_custom_path_ini} -f  "send_email.php"
 
 # Stage-d: Clear 
 #----------------------------------------------------------------------------#

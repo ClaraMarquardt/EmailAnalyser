@@ -48,6 +48,8 @@ export data_path_train=$wd_path_data"/train_data"
 
 ## code paths
 export init_path=$wd_path_code"/helper_code"
+export lib_path=${wd_path}"/dependencies/R"
+
 
 # email settings [DEFAULT]
 #-------------------------------------------------#
@@ -57,10 +59,14 @@ export email_text=$(cat ${wd_path_helper_email}/email_text.txt)
 
 # php settings [DEFAULT]
 #-------------------------------------------------#
-php_custom_path="${wd_path}/dependencies/php/bin/php"
-php_custom_path_ini="$wd_path/dependencies/php/php.d/99-liip-developer.ini"
-
-alias php_custom='function _php_custom_exec(){ ${php_custom_path} -c ${php_custom_path_ini} -f ${1}; };_php_custom_exec'
+if [ "$OSTYPE" = "linux-gnu" ]
+then
+	export php_custom_path=$(which php)
+	export php_custom_path_ini=$(php -r "echo php_ini_loaded_file();")
+else 
+	export php_custom_path="${wd_path}/dependencies/php/bin/php"
+	export php_custom_path_ini="${wd_path}/dependencies/php/php.d/99-liip-developer.ini"
+fi
 
 printf "\n###\n"
 

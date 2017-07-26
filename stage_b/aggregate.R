@@ -25,6 +25,7 @@ execution_id         <- commandArgs(trailingOnly = TRUE)[2]
 temp_data_path       <- commandArgs(trailingOnly = TRUE)[3]
 helper_path          <- commandArgs(trailingOnly = TRUE)[4]
 log_path             <- commandArgs(trailingOnly = TRUE)[5]
+lib_path             <- commandArgs(trailingOnly = TRUE)[6]
 
 # output buffer
 #-------------------------------------------------#
@@ -80,7 +81,7 @@ sentiment_dt_recipient[, score_mean:=(score_mean-min)*((new_max-new_min)/(max-mi
 # summary stats - date
 #-------------------------------------------------#
 
-email_sent <- as.character(nrow(sentiment_dt_date)))
+email_sent <- as.character(nrow(sentiment_dt_raw))
 daily_mean <- as.character(round(mean(sentiment_dt_date$score_mean),2))
 
 date_min   <- as.character(min(sentiment_dt_date$date))
@@ -119,7 +120,7 @@ sentiment_plot <- ggplot(data=sentiment_dt_date) +
 		x="Date",
 		y="Daily Positivity (0-1)",
 		title="How Am I Doing?", 
-		subtitle=sprintf("Based on %d emails send over the period: %s to %s",
+		subtitle=sprintf("Based on %s emails send over the period: %s to %s",
 			email_sent, as.character(date_min), as.character(date_max))
 	) + 
 	geom_line(aes(x=date, y=score_mean)) +

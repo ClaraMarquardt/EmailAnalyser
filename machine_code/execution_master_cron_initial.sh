@@ -33,7 +33,7 @@ printf "\n# Initialising Cron Job\n\n"
 sudo crontab -u root -l | grep -v '/execution_master_cron.sh'  | sudo crontab -u root -
 
 # execute
-echo -e "$(sudo crontab -u root -l)\n00 12 * * ${weekday} ${wd_path_code}/machine_code/execution_master_cron.sh" | sudo crontab -u root -
+echo -e "$(sudo crontab -u root -l)\n00 12 * * ${weekday} cd ${wd_path_helper_cron} && ${wd_path_code}/machine_code/execution_master_cron.sh" | sudo crontab -u root -
 
 # output 
 printf "\n# Cron Job Succesfully Initialised\n"
