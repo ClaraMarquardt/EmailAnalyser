@@ -15,7 +15,7 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
 
   # install/load devtools
   # -----------------------------
-  if (!("devtools" %in% installed.packages()[,"Package"])) {
+  if (!("devtools" %in% installed.packages(lib.loc=custom_lib_path)[,"Package"])) {
     suppressMessages(install.packages("devtools",repos="http://cran.cnr.berkeley.edu/", 
       dependencies=TRUE, lib=custom_lib_path,INSTALL_opts = c('--no-lock')))
   }
@@ -64,8 +64,7 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
 # ---------------------------------------
 # external dependencies
 # ---------------------------------------
-package_list <-list("zoo","dplyr", "data.table","stringr","lubridate",
-  "tidyr", "reshape", "reshape2","caret","glmnet","tidyverse","text2vec")
+package_list <-list("zoo","data.table","glmnet","text2vec","ggplot2")
 load_or_install(package_names=package_list, custom_lib_path = lib_path)
 
 # ---------------------------------------

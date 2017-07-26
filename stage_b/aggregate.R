@@ -105,8 +105,8 @@ sentiment_dt_recipient[, score_comb:=paste0(recipient, " (Pos. Score: ",
 
 # top 5
 unique_recipient <- nrow(sentiment_dt_recipient)
-top_5    <- head(sentiment_dt_recipient$score_comb)[1:min(floor(unique_recipient/2), 5)]
-bottom_5 <- tail(sentiment_dt_recipient$score_comb)[min(floor(unique_recipient/2), 5):1]
+top_5            <- head(sentiment_dt_recipient$score_comb)[1:min(floor(unique_recipient/2), 5)]
+bottom_5         <- tail(sentiment_dt_recipient$score_comb)[min(floor(unique_recipient/2), 5):1]
 
 # collapse
 top_5       <- paste0(top_5, collapse="\n")

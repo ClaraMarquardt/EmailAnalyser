@@ -68,7 +68,7 @@ email_list_raw  <- list.files(email_data_path_outbox)
 
 for (i in 1:length(email_list_raw)) {
 
-	cat(sprintf("Email %d out of %d\n", i, length(email_list_raw)))
+	cat(sprintf("\n\n## Email %d out of %d\n", i, length(email_list_raw)))
     email <- email_list_raw[i]
 
 	# initialise
@@ -76,7 +76,7 @@ for (i in 1:length(email_list_raw)) {
 	tfidf_temp        <- copy(tfidf)
 
 	# obtain the date 
-	date_temp   <- gsub("(.*)(__)(.*)(__)(.*)(\\.txt)", "\\3", email)
+	date_temp        <- gsub("(.*)(__)(.*)(__)(.*)(\\.txt)", "\\3", email)
 
 	# obtain the recipient
 	recipient_temp   <- gsub("(.*)(__)(.*)(__)(.*)(\\.txt)", "\\5", email)
@@ -122,7 +122,8 @@ for (i in 1:length(email_list_raw)) {
 			pred_temp <- predict(model, dtm_test_tfidf, type = 'response')[ ,1]
 		
 			# print score
-			cat(paste0("\n", pred_temp, "\n"))
+			pred_temp_adj <- 1 - pred_temp
+			cat(paste0("\n Raw Score: ", pred_temp_adj, "\n"))
 		
 			# store 
 			sentiment_score <- c(sentiment_score, pred_temp)

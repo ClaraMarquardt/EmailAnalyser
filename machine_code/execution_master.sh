@@ -81,6 +81,7 @@ rm *${execution_id}*
 
 ## delete log files
 cd ${wd_path_log}
+mv classify_${execution_id}*txt $HOME/how_am_I_doing_log_${current_date}.txt
 rm *${execution_id}*
 
 # Stage-d: Output
