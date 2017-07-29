@@ -74,7 +74,7 @@ cd ${wd_path_code}/stage_b
 
 ## aggregate
 ${R_path} CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_temp} \
-${wd_path_helper_email} ${wd_path_log} ${lib_path}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
+${wd_path_helper_email} ${wd_path_log} ${lib_path} ${email_address}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
 
 ## delete output file
 [ -e .RData ] && rm .RData
@@ -89,7 +89,7 @@ cd ${wd_path_code}/stage_c
 
 ## obtain file names
 email_report_file=$(ls ${data_path_temp}/*report_${execution_id}*)
-export email_report=$(cat $email_report_file)
+export email_report=`cat ${email_report_file}`
 export email_plot=$(ls ${data_path_temp}/*mean_plot_${execution_id}*)
 
 ## aggregate

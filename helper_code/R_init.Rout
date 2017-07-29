@@ -1,0 +1,172 @@
+
+R version 3.4.1 (2017-06-30) -- "Single Candle"
+Copyright (C) 2017 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin16.6.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> # R init
+> 
+> # check if update
+> if (!("upgrade" %in% ls())) {
++   upgrade <- commandArgs(trailingOnly = TRUE)[1]
++ }
+> 
+> # ---------------------------------------
+> # external dependencies
+> # ---------------------------------------
+> 
+> ## ehR - load or install function
+> load_or_install <- function(package_names, verbose=FALSE, upgrade=FALSE) {  
++ 
++   # obtain & save default path
++   # -----------------------------
++   print(.libPaths())
++ 
++   # upgrade packages
++   # -----------------------------
++   if (upgrade==TRUE) {
++ 
++     print("Updating Packages")
++ 
++     tryCatch({update.packages(ask = FALSE, repos = "http://cran.cnr.berkeley.edu/", 
++       checkBuilt = TRUE, type="source")}, error=function(e) {print("Package update failed")})
++   
++   }
++ 
++ 
++   # install (if required, i.e. not yet installed)  
++   # -----------------------------
++   lapply(package_names, function(x) if(!x %in% c(
++       installed.packages()[,"Package"])) {
++     
++        print(sprintf("Fresh Install: %s", x))
++     
++        suppressMessages(install.packages(x,
++         repos="http://cran.cnr.berkeley.edu/", 
++         type="source"))
++ 
++   })
++  
++   # load
++   # -----------------------------
++   packages_loaded <- lapply(package_names, function(x) {
++     if (verbose==TRUE) {
++       print(sprintf("Loading: %s", x))
++     }
++ 
++     suppressMessages(library(x,
++         character.only=TRUE, quietly=TRUE,verbose=FALSE))
++ 
++   })
++ 
++ } 
+> 
+> # ---------------------------------------
+> # external dependencies
+> # ---------------------------------------
+> package_list <-list("data.table", "glmnet","text2vec","ggplot2")
+> load_or_install(package_names=package_list, upgrade=upgrade)
+[1] "/usr/local/lib/R/3.4/site-library"        
+[2] "/usr/local/Cellar/r/3.4.1_1/lib/R/library"
+[1] "Updating Packages"
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/mgcv_1.8-18.tar.gz'
+Content type 'application/x-gzip' length 863731 bytes (843 KB)
+==================================================
+downloaded 843 KB
+
+* installing *source* package ‘mgcv’ ...
+** package ‘mgcv’ successfully unpacked and MD5 sums checked
+** libs
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c coxph.c -o coxph.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c discrete.c -o discrete.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c gdi.c -o gdi.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c init.c -o init.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c magic.c -o magic.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c mat.c -o mat.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c matrix.c -o matrix.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c mgcv.c -o mgcv.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c misc.c -o misc.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c mvn.c -o mvn.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c qp.c -o qp.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c soap.c -o soap.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c sparse-smooth.c -o sparse-smooth.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c tprs.c -o tprs.o
+clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/Cellar/r/3.4.1_1/lib/R/lib -L/usr/local/opt/gettext/lib -L/usr/local/opt/readline/lib -L/usr/local/lib -o mgcv.so coxph.o discrete.o gdi.o init.o magic.o mat.o matrix.o mgcv.o misc.o mvn.o qp.o soap.o sparse-smooth.o tprs.o -framework Accelerate -L/usr/local/Cellar/gcc/7.1.0/lib/gcc/7/gcc/x86_64-apple-darwin16.5.0/7.1.0 -L/usr/local/Cellar/gcc/7.1.0/lib/gcc/7 -lgfortran -lquadmath -lm -L/usr/local/Cellar/r/3.4.1_1/lib/R/lib -lR -lintl -Wl,-framework -Wl,CoreFoundation
+installing to /usr/local/Cellar/r/3.4.1_1/lib/R/library/mgcv/libs
+** R
+** data
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (mgcv)
+
+The downloaded source packages are in
+	‘/private/var/folders/m7/y5gfhjhj64vc_n9dtq23w81w0000gn/T/Rtmp9zyc55/downloaded_packages’
+Updating HTML index of packages in '.Library'
+Warning messages:
+1: In file.create(f.tg) :
+  cannot create file '/usr/local/Cellar/r/3.4.1_1/lib/R/doc/html/packages.html', reason 'Permission denied'
+2: In make.packages.html(.Library) : cannot update HTML package index
+> 
+> # ---------------------------------------
+> # embedded dependencies
+> # ---------------------------------------
+> 
+> ## theme_basic
+> theme_basic <-  function(axis_size=0.5, title_size=8, subtitle_size=6, 
++                   font_gen ="URWHelvetica", col_gen="grey50")  
++   theme_bw() +
++   theme(
++     axis.text.x = element_text(size=rel(axis_size), colour = col_gen,
++       family=font_gen),
++     axis.text.y = element_text(size=rel(axis_size), colour = col_gen,
++       family=font_gen), 
++     axis.title.x = element_text(size=rel(axis_size), colour = col_gen,
++     family=font_gen),
++       axis.title.y = element_text(size=rel(axis_size), colour = col_gen,
++     family=font_gen),
++     plot.title = element_text(size = title_size, colour = col_gen, face = "bold",
++       family=font_gen),
++     plot.subtitle = element_text(size = subtitle_size, colour = col_gen, 
++       face = "plain",family=font_gen),
++     plot.caption = element_text(size = (subtitle_size-1), colour = col_gen, 
++       face = "plain",family=font_gen)
++   )
+> 
+> 
+> ## theme_legend_bottoms
+> theme_legend_bottom <- function(title_size=0.5, text_size=0.4, tick_size=0.08,
++   legend_width=0.5, legend_height=0.2, hjust_title=0.5, font_gen ="URWHelvetica", 
++   col_gen  ="grey50") 
++ 
++   theme(
++     legend.position="bottom", 
++     legend.key.height=unit(legend_height,"cm"),
++     legend.key.width=unit(legend_width,"cm"),
++     axis.ticks.length=unit(tick_size,"cm"),
++     legend.title=element_text(size=rel(title_size), colour=col_gen, family=font_gen, 
++       hjust=hjust_title, face="plain"),
++     legend.text=element_text(size=rel(text_size), colour=col_gen, family=font_gen))
+>   
+> 
+> 
+> 
+> proc.time()
+   user  system elapsed 
+ 48.649   2.770  59.456 

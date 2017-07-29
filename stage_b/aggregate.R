@@ -25,7 +25,7 @@ execution_id         <- commandArgs(trailingOnly = TRUE)[2]
 temp_data_path       <- commandArgs(trailingOnly = TRUE)[3]
 helper_path          <- commandArgs(trailingOnly = TRUE)[4]
 log_path             <- commandArgs(trailingOnly = TRUE)[5]
-lib_path             <- commandArgs(trailingOnly = TRUE)[6]
+own_email            <- commandArgs(trailingOnly = TRUE)[6]
 
 # output buffer
 #-------------------------------------------------#
@@ -33,6 +33,7 @@ sink(paste0(log_path, "/aggregate_", execution_id,".txt"), append=FALSE, split=F
 
 # dependencies
 #-------------------------------------------------#
+upgrade <- FALSE
 source(paste0(init_path, "/R_init.R"))
 
 # parameters / helpers
@@ -57,6 +58,9 @@ sentiment_dt_raw <- readRDS(paste0(temp_data_path,"/",
 ## format dates & omit sample emails
 sentiment_dt_raw[, date:=as.IDate(date, "%d_%m_%Y")]
 sentiment_dt_raw <- sentiment_dt_raw[year(date)==2017]
+
+## omit emails send to own address
+sentiment_dt_raw <- sentiment_dt_raw[recipient!=own_email]
 
 ## re-scale score (invert)
 sentiment_dt_raw[, score:=1-score]
@@ -114,13 +118,12 @@ bottom_5    <- paste0(bottom_5, collapse="\n")
 
 # plot
 #-------------------------------------------------#
-
 sentiment_plot <- ggplot(data=sentiment_dt_date) + 
 	labs(
 		x="Date",
 		y="Daily Positivity (0-1)",
 		title="How Am I Doing?", 
-		subtitle=sprintf("Based on %s emails send over the period: %s to %s",
+		subtitle=sprintf("Based on %s emails sent over the period: %s to %s",
 			email_sent, as.character(date_min), as.character(date_max))
 	) + 
 	geom_line(aes(x=date, y=score_mean)) +

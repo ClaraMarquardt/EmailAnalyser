@@ -21,7 +21,6 @@ email_data_path_outbox   <- commandArgs(trailingOnly = TRUE)[4]
 temp_data_path           <- commandArgs(trailingOnly = TRUE)[5]
 log_path                 <- commandArgs(trailingOnly = TRUE)[6]
 model_path               <- commandArgs(trailingOnly = TRUE)[7]
-lib_path                 <- commandArgs(trailingOnly = TRUE)[8]
 
 # output buffer
 #-------------------------------------------------#
@@ -35,6 +34,7 @@ start_time   <- Sys.time()
 
 # dependencies
 #-------------------------------------------------#
+upgrade <- FALSE
 source(paste0(init_path, "/R_init.R"))
 
 # parameters / helpers

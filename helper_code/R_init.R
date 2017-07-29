@@ -1,48 +1,43 @@
 # R init
 
+# check if update
+if (!("upgrade" %in% ls())) {
+  upgrade <- commandArgs(trailingOnly = TRUE)[1]
+}
+
 # ---------------------------------------
 # external dependencies
 # ---------------------------------------
 
 ## ehR - load or install function
-load_or_install <- function(package_names, custom_lib_path=FALSE, 
-  custom_path=NA, verbose=FALSE, local_package=FALSE, 
-  local_package_path=NA) {  
+load_or_install <- function(package_names, verbose=FALSE, upgrade=FALSE) {  
 
   # obtain & save default path
   # -----------------------------
-  print(sprintf("lib_path: %s", custom_lib_path))
+  print(.libPaths())
 
-  # install/load devtools
+  # upgrade packages
   # -----------------------------
-  if (!("devtools" %in% installed.packages(lib.loc=custom_lib_path)[,"Package"])) {
-    suppressMessages(install.packages("devtools",repos="http://cran.cnr.berkeley.edu/", 
-      dependencies=TRUE, lib=custom_lib_path,INSTALL_opts = c('--no-lock')))
+  if (upgrade==TRUE) {
+
+    print("Updating Packages")
+
+    tryCatch({update.packages(ask = FALSE, repos = "http://cran.cnr.berkeley.edu/", 
+      checkBuilt = TRUE, type="source")}, error=function(e) {print("Package update failed")})
+  
   }
-  library(devtools)
-  dev_mode(TRUE)
+
 
   # install (if required, i.e. not yet installed)  
   # -----------------------------
-  lapply(package_names, function(x) if(!x %in% c(installed.packages(
-       lib.loc=custom_lib_path)[,"Package"])) {
+  lapply(package_names, function(x) if(!x %in% c(
+      installed.packages()[,"Package"])) {
     
        print(sprintf("Fresh Install: %s", x))
     
-       # install
-       if (x=="data.table") {
-    
-         suppressMessages(withr::with_libpaths(new = custom_lib_path,
-           install_version("data.table", version = "1.9.6",
-           repos = "http://cran.us.r-project.org",
-           dependencies=TRUE)))
-    
-       } else {
-    
-         suppressMessages(install.packages(x,repos="http://cran.cnr.berkeley.edu/", 
-           dependencies=TRUE, lib=custom_lib_path))
-    
-      }
+       suppressMessages(install.packages(x,
+        repos="http://cran.cnr.berkeley.edu/", 
+        type="source"))
 
   })
  
@@ -54,8 +49,7 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
     }
 
     suppressMessages(library(x,
-        character.only=TRUE, quietly=TRUE,verbose=FALSE, 
-        lib.loc=custom_lib_path))
+        character.only=TRUE, quietly=TRUE,verbose=FALSE))
 
   })
 
@@ -64,8 +58,8 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
 # ---------------------------------------
 # external dependencies
 # ---------------------------------------
-package_list <-list("zoo","data.table","glmnet","text2vec","ggplot2")
-load_or_install(package_names=package_list, custom_lib_path = lib_path)
+package_list <-list("data.table", "glmnet","text2vec","ggplot2")
+load_or_install(package_names=package_list, upgrade=upgrade)
 
 # ---------------------------------------
 # embedded dependencies

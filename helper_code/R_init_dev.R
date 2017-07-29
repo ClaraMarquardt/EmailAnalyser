@@ -16,10 +16,16 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
   # install/load devtools
   # -----------------------------
   if (!("devtools" %in% installed.packages(lib.loc=custom_lib_path)[,"Package"])) {
+    
+    print("Fresh Install: devtools")
+
     suppressMessages(install.packages("devtools",repos="http://cran.cnr.berkeley.edu/", 
       dependencies=TRUE, lib=custom_lib_path,INSTALL_opts = c('--no-lock')))
+
   }
-  library(devtools)
+
+  library(devtools, character.only=TRUE, quietly=TRUE,verbose=FALSE, 
+        lib.loc=custom_lib_path)
   dev_mode(TRUE)
 
   # install (if required, i.e. not yet installed)  
@@ -34,8 +40,7 @@ load_or_install <- function(package_names, custom_lib_path=FALSE,
     
          suppressMessages(withr::with_libpaths(new = custom_lib_path,
            install_version("data.table", version = "1.9.6",
-           repos = "http://cran.us.r-project.org",
-           dependencies=TRUE)))
+           repos = "http://cran.us.r-project.org")))
     
        } else {
     

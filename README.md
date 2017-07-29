@@ -1,16 +1,50 @@
 # How am I doing? _Email-Based Sentiment Analysis_
 
-### Requirements
+### Overview
 --------------------------------
 
-[1] R (With command line integration)
+* Two modes
 
-[2] Terminal (Installed by Default on MacOSX) (* Assume that running bash (not e.g. zshrc))
+[1] Interactive Mode - You will be prompted to enter a date from which to start pulling emails, your email address and your email password everytime you run the tool (e.g. analyse all emails over the past 4 weeks (this will take some time)). At completion the plot, report and log file with the individual emails will be stored in your home directory (~/)
 
-[3] Gmail email account (* MVP - tool can be extended to work with other email clients)
+[2] Batch Mode - You will .....
 
-[3] * php with imap support - provided as part of package (for MaxOSx)
 
+* Overall
+- All analysis is done locally - emails are pulled from the server and all analysis is done locally. All emails (and log files) are (unless in interactive mode) deleted upon complettion
+- In interactive mode no data is stored vs. in batch mode - username/password is stored in a root access only text file to allow the job scheduler to perform the job at regular intervals
+
+### Requirements
+--------------------------------
+R reinsalled
+oerall run time
+lkeep log files
+[0] MACOSX
+intnet
+[1] Terminal (Installed by Default on MacOSX) (* Assume that running bash (not e.g. zshrc))
+
+[2] Gmail email account (* MVP - tool can be extended to work with other email clients)
+* You may need to modify the security settings here (need to modify only once)
+to allow the script to access your account: https://myaccount.google.com/lesssecureapps
+
+[3] Provided as part of package (if not already installed): R & numbe rof R packages
+
+[4] Provided as part of package: php with imap support - provided as part of package (for MaxOSx)
+
+### Installation
+--------------------------------
+````
+
+# Obtain folder
+Unzip directory to path, e.g. Desktop
+
+# Install
+cd [local path]/email_sentiment              # navigate to the 'email_sentiment' directory
+source code/machine_code/execution_master.sh # start the setup script 
+
+
+
+````
 
 ### Execution
 --------------------------------
@@ -19,11 +53,12 @@
 ````
 # Execute
 cd [local path]/email_sentiment              # navigate to the 'email_sentiment' directory
-source code/machine_code/execution_master.sh # start the tool
+source code/machine_code/set_up.sh # start the tool
 
 # Note
-* You may need to modify the security settings here (need to modify only once)
-to allow the script to access your account: https://myaccount.google.com/lesssecureapps
+* You may initially be prompted for a password ("Password: ") - 
+enter the root password (this is required to set up the regular execution of the script)
+
 
 ````
 
@@ -33,6 +68,10 @@ to allow the script to access your account: https://myaccount.google.com/lesssec
 # Set up the reoccurring job
 cd [local path]/email_sentiment                           # navigate to the 'email_sentiment' directory
 source code/machine_code/execution_master_cron_initial.sh # set-up the reoccurring job
+
+# User settings
+You will be asked a number of questions: 
+
 
 # Note
 * You may initially be prompted for a password ("Password: ") - 
