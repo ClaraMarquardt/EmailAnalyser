@@ -19,6 +19,7 @@ error_reporting(0);
 
 /* obtain environment arguments - email related */
 $hostname = '{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail';
+// $hostname = '{imap.gmail.com:993/imap/ssl}[Gmail]/Gesendet';
 $username = getenv("email_address");
 $password = getenv("email_pwd");
 
@@ -44,6 +45,7 @@ ob_start('ob_file_callback');
 $inbox = imap_open($hostname,$username,$password) or die('Cannot connect to Gmail: ' . imap_last_error());
 
 /* extract emails */
+echo "\n\nSuccessfully connected to Gmail account\n\n";
 $emails = imap_search($inbox,'SINCE "'.$email_date.'"');
 echo "\n\n" . "number of emails: " . count($emails) . "\n\n";
 
@@ -127,7 +129,7 @@ if($emails) {
                 case 0:
             
                 $message = getPart($inbox, $email_number, $partNumber, $part->encoding);
- 
+                print_r($message);
                 $filepath = $folder_output_outbox ."/email_" . "$email_number" . "_" . "$i" . "__" . "$email_date_actual" . "__" . $recipient . ".txt";
 
                 $fp = fopen($filepath,"w+");
@@ -136,7 +138,7 @@ if($emails) {
             
                 break;
 
-    
+
             }
 
             $i++;

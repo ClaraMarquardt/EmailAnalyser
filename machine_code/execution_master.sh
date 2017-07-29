@@ -85,7 +85,7 @@ rm *${execution_id}*
 ## delete log files
 cd ${wd_path_log}
 cp classify_${execution_id}*txt ${wd_path_output}/output_${current_date}_${execution_id}/how_am_I_doing_log_${current_date}.txt
-if [ ${keep_log} == "No" ]; then
+if [ "${keep_log}" == "No" ]; then
 	cd ${wd_path_log}
 	rm *${execution_id}*
 else 

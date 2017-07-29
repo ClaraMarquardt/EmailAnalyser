@@ -105,7 +105,7 @@ setorder(sentiment_dt_recipient, -score_mean)
 
 # collapse
 sentiment_dt_recipient[, score_comb:=paste0(recipient, " (Pos. Score: ", 
-	round(score_mean,2), " / Emails: ", N, ")"), by=1:nrow(sentiment_dt_recipient)]
+	round(score_mean,2), " / Emails: ", N, ")")]
 
 # top 5
 unique_recipient <- nrow(sentiment_dt_recipient)
@@ -141,11 +141,11 @@ report_text <- paste0(readLines(paste0(helper_path, "/email_text.txt")), collaps
 
 report_text <- gsub("XX", "%s", report_text)
 report_text <- sprintf(report_text, daily_mean, daily_max, 
-	date_max, daily_min, date_min, top_5, bottom_5, date_min, date_max, 
+	daily_max_date, daily_min, daily_min_date, top_5, bottom_5, date_min, date_max, 
 	email_sent)
 
 # save
-write.table(report_text, paste0(temp_data_path, 
+write.table(report_text[1], paste0(temp_data_path, 
 	"/report_", execution_id, ".txt"), row.names=FALSE, 
     col.names=FALSE, quote=FALSE)
 

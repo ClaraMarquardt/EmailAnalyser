@@ -28,10 +28,12 @@ printf "\n# ----------------------\n"
 
 ## Homebrew
 if ! [ -x "$(command -v brew)" ]; then
+	
 	printf "\n# Installing & Updating Homebrew"
 	printf "\n# ----------------------\n"
 
 	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</dev/null
+
 fi
 
 brew cleanup
@@ -41,9 +43,13 @@ brew update
 printf "Installing R"
 printf "\n# ----------------------\n"
 
+## Uninstall
 brew uninstall --force r
+[ -e  /usr/local/lib/R/3.4/site-library ] && rm -rf /usr/local/lib/R/3.4/site-library/*
+[ -e  /usr/local/Cellar/r/3.4.1_1/lib/R/library ] && rm -rf  /usr/local/Cellar/r/3.4.1_1/lib/R/library*
+## Reinstall
 brew prune 
-brew tap homebrew/science && brew install r 
+brew tap homebrew/science && brew install r
 brew link --overwrite r
 
 # Check if R is correctly configured

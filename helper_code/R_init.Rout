@@ -117,56 +117,177 @@ installing to /usr/local/Cellar/r/3.4.1_1/lib/R/library/mgcv/libs
 * DONE (mgcv)
 
 The downloaded source packages are in
-	‘/private/var/folders/m7/y5gfhjhj64vc_n9dtq23w81w0000gn/T/Rtmp9zyc55/downloaded_packages’
+	‘/private/var/folders/m7/y5gfhjhj64vc_n9dtq23w81w0000gn/T/Rtmp9vFxg0/downloaded_packages’
 Updating HTML index of packages in '.Library'
-Warning messages:
-1: In file.create(f.tg) :
-  cannot create file '/usr/local/Cellar/r/3.4.1_1/lib/R/doc/html/packages.html', reason 'Permission denied'
-2: In make.packages.html(.Library) : cannot update HTML package index
-> 
-> # ---------------------------------------
-> # embedded dependencies
-> # ---------------------------------------
-> 
-> ## theme_basic
-> theme_basic <-  function(axis_size=0.5, title_size=8, subtitle_size=6, 
-+                   font_gen ="URWHelvetica", col_gen="grey50")  
-+   theme_bw() +
-+   theme(
-+     axis.text.x = element_text(size=rel(axis_size), colour = col_gen,
-+       family=font_gen),
-+     axis.text.y = element_text(size=rel(axis_size), colour = col_gen,
-+       family=font_gen), 
-+     axis.title.x = element_text(size=rel(axis_size), colour = col_gen,
-+     family=font_gen),
-+       axis.title.y = element_text(size=rel(axis_size), colour = col_gen,
-+     family=font_gen),
-+     plot.title = element_text(size = title_size, colour = col_gen, face = "bold",
-+       family=font_gen),
-+     plot.subtitle = element_text(size = subtitle_size, colour = col_gen, 
-+       face = "plain",family=font_gen),
-+     plot.caption = element_text(size = (subtitle_size-1), colour = col_gen, 
-+       face = "plain",family=font_gen)
-+   )
-> 
-> 
-> ## theme_legend_bottoms
-> theme_legend_bottom <- function(title_size=0.5, text_size=0.4, tick_size=0.08,
-+   legend_width=0.5, legend_height=0.2, hjust_title=0.5, font_gen ="URWHelvetica", 
-+   col_gen  ="grey50") 
-+ 
-+   theme(
-+     legend.position="bottom", 
-+     legend.key.height=unit(legend_height,"cm"),
-+     legend.key.width=unit(legend_width,"cm"),
-+     axis.ticks.length=unit(tick_size,"cm"),
-+     legend.title=element_text(size=rel(title_size), colour=col_gen, family=font_gen, 
-+       hjust=hjust_title, face="plain"),
-+     legend.text=element_text(size=rel(text_size), colour=col_gen, family=font_gen))
->   
-> 
-> 
-> 
-> proc.time()
-   user  system elapsed 
- 48.649   2.770  59.456 
+[1] "Fresh Install: data.table"
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/data.table_1.10.4.tar.gz'
+Content type 'application/x-gzip' length 3068135 bytes (2.9 MB)
+==================================================
+downloaded 2.9 MB
+
+* installing *source* package ‘data.table’ ...
+** package ‘data.table’ successfully unpacked and MD5 sums checked
+** libs
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c assign.c -o assign.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c between.c -o between.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c bmerge.c -o bmerge.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c chmatch.c -o chmatch.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c dogroups.c -o dogroups.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c fastmean.c -o fastmean.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c fcast.c -o fcast.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c fmelt.c -o fmelt.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c forder.c -o forder.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c frank.c -o frank.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c fread.c -o fread.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c fsort.c -o fsort.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c fwrite.c -o fwrite.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c gsumm.c -o gsumm.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c ijoin.c -o ijoin.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c init.c -o init.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c inrange.c -o inrange.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c openmp-utils.c -o openmp-utils.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c quickselect.c -o quickselect.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c rbindlist.c -o rbindlist.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c reorder.c -o reorder.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c shift.c -o shift.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c subset.c -o subset.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c transpose.c -o transpose.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c uniqlist.c -o uniqlist.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c vecseq.c -o vecseq.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c wrappers.c -o wrappers.o
+clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/Cellar/r/3.4.1_1/lib/R/lib -L/usr/local/opt/gettext/lib -L/usr/local/opt/readline/lib -L/usr/local/lib -o data.table.so assign.o between.o bmerge.o chmatch.o dogroups.o fastmean.o fcast.o fmelt.o forder.o frank.o fread.o fsort.o fwrite.o gsumm.o ijoin.o init.o inrange.o openmp-utils.o quickselect.o rbindlist.o reorder.o shift.o subset.o transpose.o uniqlist.o vecseq.o wrappers.o -L/usr/local/Cellar/r/3.4.1_1/lib/R/lib -lR -lintl -Wl,-framework -Wl,CoreFoundation
+mv data.table.so datatable.so
+if [ "" != "Windows_NT" ] && [ `uname -s` = 'Darwin' ]; then install_name_tool -id datatable.so datatable.so; fi
+installing to /usr/local/lib/R/3.4/site-library/data.table/libs
+** R
+** inst
+** byte-compile and prepare package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (data.table)
+
+The downloaded source packages are in
+	‘/private/var/folders/m7/y5gfhjhj64vc_n9dtq23w81w0000gn/T/Rtmp9vFxg0/downloaded_packages’
+[1] "Fresh Install: glmnet"
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/iterators_1.0.8.tar.gz'
+Content type 'application/x-gzip' length 290412 bytes (283 KB)
+==================================================
+downloaded 283 KB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/foreach_1.4.3.tar.gz'
+Content type 'application/x-gzip' length 359787 bytes (351 KB)
+==================================================
+downloaded 351 KB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/glmnet_2.0-10.tar.gz'
+Content type 'application/x-gzip' length 3871761 bytes (3.7 MB)
+==================================================
+downloaded 3.7 MB
+
+* installing *source* package ‘iterators’ ...
+** package ‘iterators’ successfully unpacked and MD5 sums checked
+** R
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (iterators)
+* installing *source* package ‘foreach’ ...
+** package ‘foreach’ successfully unpacked and MD5 sums checked
+** R
+** demo
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (foreach)
+* installing *source* package ‘glmnet’ ...
+** package ‘glmnet’ successfully unpacked and MD5 sums checked
+ This package requires a fortran 90 compiler. We assume
+ that your fortran 90 environment is set up appropriately.
+ Reference: Section on 'Using F95 code' in R-exts manual.
+ R_HOME is /usr/local/Cellar/r/3.4.1_1/lib/R
+  R configured for gfortran...
+configure: creating ./config.status
+config.status: creating src/Makevars
+** libs
+/usr/local/bin/gfortran -fdefault-real-8 -ffixed-form -fPIC -g -O2  -c  glmnet5.f90 -o glmnet5.o
+clang -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG   -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c glmnet_init.c -o glmnet_init.o
+/usr/local/bin/gfortran -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/usr/local/opt/gettext/lib -L/usr/local/opt/readline/lib -L/usr/local/lib -L/usr/local/Cellar/r/3.4.1_1/lib/R/lib -L/usr/local/opt/gettext/lib -L/usr/local/opt/readline/lib -L/usr/local/lib -o glmnet.so glmnet5.o glmnet_init.o -L/usr/local/Cellar/r/3.4.1_1/lib/R/lib -lR -lintl -Wl,-framework -Wl,CoreFoundation
+installing to /usr/local/lib/R/3.4/site-library/glmnet/libs
+** R
+** data
+** inst
+** preparing package for lazy loading
+** help
+*** installing help indices
+** building package indices
+** installing vignettes
+** testing if installed package can be loaded
+* DONE (glmnet)
+
+The downloaded source packages are in
+	‘/private/var/folders/m7/y5gfhjhj64vc_n9dtq23w81w0000gn/T/Rtmp9vFxg0/downloaded_packages’
+[1] "Fresh Install: text2vec"
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/BH_1.62.0-1.tar.gz'
+Content type 'application/x-gzip' length 10181096 bytes (9.7 MB)
+==================================================
+downloaded 9.7 MB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/Rcpp_0.12.12.tar.gz'
+Content type 'application/x-gzip' length 2421289 bytes (2.3 MB)
+==================================================
+downloaded 2.3 MB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/RcppParallel_4.3.20.tar.gz'
+Content type 'application/x-gzip' length 1560887 bytes (1.5 MB)
+==================================================
+downloaded 1.5 MB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/digest_0.6.12.tar.gz'
+Content type 'application/x-gzip' length 120337 bytes (117 KB)
+==================================================
+downloaded 117 KB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/magrittr_1.5.tar.gz'
+Content type 'application/x-gzip' length 200504 bytes (195 KB)
+==================================================
+downloaded 195 KB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/irlba_2.2.1.tar.gz'
+Content type 'application/x-gzip' length 224188 bytes (218 KB)
+==================================================
+downloaded 218 KB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/R6_2.2.2.tar.gz'
+Content type 'application/x-gzip' length 322959 bytes (315 KB)
+==================================================
+downloaded 315 KB
+
+trying URL 'http://cran.cnr.berkeley.edu/src/contrib/text2vec_0.4.0.tar.gz'
+Content type 'application/x-gzip' length 3433916 bytes (3.3 MB)
+==================================================
+downloaded 3.3 MB
+
+* installing *source* package ‘BH’ ...
+** package ‘BH’ successfully unpacked and MD5 sums checked
+** inst
+** help
+*** installing help indices
+** building package indices
+** testing if installed package can be loaded
+* DONE (BH)
+* installing *source* package ‘Rcpp’ ...
+** package ‘Rcpp’ successfully unpacked and MD5 sums checked
+** libs
+clang++  -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG -I../inst/include/  -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c Date.cpp -o Date.o
+clang++  -I/usr/local/Cellar/r/3.4.1_1/lib/R/include -DNDEBUG -I../inst/include/  -I/usr/local/opt/gettext/include -I/usr/local/opt/readline/include -I/usr/local/include   -fPIC  -g -O2  -c Module.cpp -o Module.o

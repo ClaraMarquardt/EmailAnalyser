@@ -31,9 +31,9 @@ read -s -p 'Enter email password:' email_pwd
 export email_pwd=${email_pwd}
 printf "\n"
 
-unset log_keep
-read -s -p 'Keep log files (Yes/No):' log_keep
-export log_keep=${log_keep}
+unset keep_log
+read -p 'Keep log files (Yes/No):' keep_log
+export keep_log=${keep_log}
 printf "\n"
 
 printf "\n###\n"
