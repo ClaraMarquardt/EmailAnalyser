@@ -110,6 +110,7 @@ if($emails) {
         /* mark as read */
         $status = imap_setflag_full($inbox, $email_number, "\\Seen \\Flagged"); 
         $header = imap_header($inbox, $email_number);
+
         $email_date_actual = date_create($header->date);
         $email_date_actual = date_format($email_date_actual,"d_m_Y");
         $recipient = $header->toaddress;
@@ -119,29 +120,75 @@ if($emails) {
         $structure_raw = imap_fetchstructure($inbox, $email_number);
         $structure_flat = flattenParts($structure_raw->parts);
 
+        /* get email type */
+        $type = $structure_raw->type;
+
         /* loop over parts */
         $i = 0;
 
-        foreach($structure_flat as $partNumber => $part) {
+        if ($type==1) {
+            
+            echo "\nmulti part\n"; 
 
-            switch($part->type) {
+            foreach($structure_flat as $partNumber => $part) {
+
+                switch($part->type) {
         
-                case 0:
+                    case 0:
             
-                $message = getPart($inbox, $email_number, $partNumber, $part->encoding);
-                print_r($message);
-                $filepath = $folder_output_outbox ."/email_" . "$email_number" . "_" . "$i" . "__" . "$email_date_actual" . "__" . $recipient . ".txt";
+                    $message = getPart($inbox, $email_number, $partNumber, $part->encoding);
+                    print_r($message);
+                    $filepath = $folder_output_outbox ."/email_" . "$email_number" . "_" . "$i" . "__" . "$email_date_actual" . "__" . $recipient . ".txt";
 
-                $fp = fopen($filepath,"w+");
-                fwrite($fp, $message);
-                fclose($fp);
+                    $fp = fopen($filepath,"w+");
+                    fwrite($fp, $message);
+                    fclose($fp);
             
+                    break;
+
+
+                }
+
+                $i++;
+            }
+        } elseif ($type==0) {
+
+          echo "\nsingle part\n"; 
+
+          $message = imap_fetchbody($inbox, $email_number, 1);
+          print_r($message);
+
+          $filepath = $folder_output_outbox ."/email_" . "$email_number" . "_" . "$i" . "__" . "$email_date_actual" . "__" . $recipient . ".txt";
+          $fp = fopen($filepath,"w+");
+
+          switch ($structure_raw->encoding) {
+                
+                case 3: 
+
+                $message = imap_base64($message);
+                fwrite($fp, $message);
+
                 break;
 
+                case 4: 
 
-            }
+                $message = imap_qprint($message);
+                fwrite($fp, $message);
+
+                break;
+
+                default: 
+
+                fwrite($fp, $message);
+
+                break;
+           }
+
+            
+            fclose($fp);
 
             $i++;
+
         }
 
     }

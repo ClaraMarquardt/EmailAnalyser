@@ -1,9 +1,44 @@
 # WD
 wd_path=$(pwd)
-echo ${wd_path}
 
-## PHP
-## ----------------
+# DateTime
+current_date=$(date +"%m_%d_%Y / %H:%M")
+
+# define log function
+status_file=${wd_path}/log/config_status.txt
+echo ${status_file}
+
+echolog()
+(
+echo $1
+echo $1 >> ${status_file}
+)
+
+# Initialisation
+# ----------------
+echolog "#---------------------#"
+echolog "### DATE: $current_date ###"
+echolog "#---------------------#"
+
+echolog "### INITIAL CONFIGURATION ###"
+
+# path
+echolog "# WD: $(pwd)"
+echolog "# PATH: $PATH"
+
+# key dependencues
+echolog "# PHP: $(which php)"
+echolog "# PHP Version: $(php --version)"
+echolog "# Xcode: $(xcode-select --print-path)"
+echolog "# Homebrew: $(which brew)"
+echolog "# Homebrew Version: $(brew --version)"
+echolog "# R: $(which R)"
+echolog "# R Version: $(R --version)"
+
+echolog "### END INITIAL CONFIGURATION ###"
+
+# PHP
+# ----------------
 
 # Install PHP
 
@@ -16,8 +51,8 @@ sudo curl -s https://php-osx.liip.ch/install.sh | bash -s 7.1
 export php_custom_path="/usr/local/php5/bin/php"
 export php_custom_path_ini=$(${php_custom_path} -r "echo php_ini_loaded_file();")
 
-echo $php_custom_path
-echo $php_custom_path_ini
+echolog "# PHP: $php_custom_path"
+echolog "# PHP .ini: $php_custom_path_ini"
 ${php_custom_path} -c ${php_custom_path_ini} -r "echo phpinfo();" 
 
 printf "\n# SUCCESS - PHP successfully installed & configured"
@@ -27,15 +62,16 @@ printf "\n# ----------------------\n"
 ## ----------------
 
 ## Homebrew
-if ! [ -x "$(command -v brew)" ]; then
-	
-	printf "\n# Installing & Updating Homebrew"
-	printf "\n# ----------------------\n"
+printf "\n# Installing & Updating Homebrew (+ Command Line Tools)"
+printf "\n# ----------------------\n"
 
-	ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</dev/null
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</dev/null
 
-fi
+## Confirm that the Command Line Tools are correctly confgured
+echolog "# Homebrew Version: $(brew --version)"
+echolog "# Xcode: $(xcode-select --print-path)"
 
+## Homebrew - update/clear up
 brew cleanup
 brew update
 
@@ -53,8 +89,8 @@ brew tap homebrew/science && brew install r
 brew link --overwrite r
 
 # Check if R is correctly configured
-echo $(which R)
-echo $(R --version)
+echolog "R: $(which R)"
+echolog "R Version: $(R --version)"
 
 ## R Packages
 printf "Installing R Packages"
@@ -62,7 +98,7 @@ printf "\n# ----------------------\n"
 
 cd ${wd_path}
 R CMD BATCH --no-save "--args TRUE" \
-${wd_path}/code/helper_code/R_init.R ${wd_path}/code/helper_code/R_init.Rout
+${wd_path}/code/helper_code/R_init.R ${wd_path}/log/R_init.Rout
 
 printf "\n# SUCCESS - R successfully installed & configured"
 printf "\n# ----------------------\n"

@@ -22,7 +22,7 @@ lkeep log files
 [0] MACOSX
 intnet
 [1] Terminal (Installed by Default on MacOSX) (* Assume that running bash (not e.g. zshrc))
-
+may need to click yes, etc. will take longer if no xcode instlaled
 [2] Gmail email account (* MVP - tool can be extended to work with other email clients)
 * You may need to modify the security settings here (need to modify only once)
 to allow the script to access your account: https://myaccount.google.com/lesssecureapps
@@ -30,7 +30,7 @@ to allow the script to access your account: https://myaccount.google.com/lesssec
 [3] Provided as part of package (if not already installed): R & numbe rof R packages
 
 [4] Provided as part of package: php with imap support - provided as part of package (for MaxOSx)
-
+baseline dependcines & sub (e..g xcode, homrbew...)
 ### Installation
 --------------------------------
 ````
@@ -53,7 +53,7 @@ source code/machine_code/execution_master.sh # start the setup script
 ````
 # Execute
 cd [local path]/email_sentiment              # navigate to the 'email_sentiment' directory
-source code/machine_code/set_up.sh # start the tool
+source code/machine_code/set_up.sh > log/set_up.txt 2>&1 # start the tool
 
 # Note
 * You may initially be prompted for a password ("Password: ") - 

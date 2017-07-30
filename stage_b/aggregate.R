@@ -47,7 +47,9 @@ source(paste0(init_path, "/R_init.R"))
 sentiment_dt_raw <- readRDS(paste0(temp_data_path,"/",
 	grep(".Rds", list.files(temp_data_path), value=T)[1]))
 
-# print(str(sentiment_dt_raw))
+### stats
+print(str(sentiment_dt_raw))
+print(sentiment_dt_raw)
 
 # graph
 #----------------------------------------------------------------------------#
@@ -62,6 +64,9 @@ sentiment_dt_raw <- sentiment_dt_raw[year(date)==2017]
 ## omit emails send to own address
 sentiment_dt_raw <- sentiment_dt_raw[recipient!=own_email]
 
+### stats
+print(sentiment_dt_raw)
+
 ## re-scale score (invert)
 sentiment_dt_raw[, score:=1-score]
 
@@ -73,6 +78,7 @@ sentiment_dt_raw[, N:=.N, by=c("recipient")]
 sentiment_dt_date      <- unique(copy(sentiment_dt_raw), by=c("date"))
 sentiment_dt_recipient <- unique(copy(sentiment_dt_raw), by=c("recipient"))
 
+
 ## rescale
 min <- min(sentiment_dt_date$score_mean, sentiment_dt_recipient$score_mean)
 max <- max(sentiment_dt_date$score_mean,  sentiment_dt_recipient$score_mean)
@@ -81,6 +87,10 @@ new_max <- 0.73
 
 sentiment_dt_date[, score_mean:=(score_mean-min)*((new_max-new_min)/(max-min)) + new_min]
 sentiment_dt_recipient[, score_mean:=(score_mean-min)*((new_max-new_min)/(max-min)) + new_min]
+
+### stats
+print(sentiment_dt_date)
+print(sentiment_dt_recipient)
 
 # summary stats - date
 #-------------------------------------------------#
@@ -100,17 +110,18 @@ daily_max_date <- as.character(sentiment_dt_date[score_mean==max(score_mean)]$da
 # summary stats - recipient
 #-------------------------------------------------#
 
-# sort
-setorder(sentiment_dt_recipient, -score_mean)
-
 # collapse
 sentiment_dt_recipient[, score_comb:=paste0(recipient, " (Pos. Score: ", 
-	round(score_mean,2), " / Emails: ", N, ")")]
+	round(score_mean,2), " / Emails: ", N, ")"), by=c("id")]
 
 # top 5
 unique_recipient <- nrow(sentiment_dt_recipient)
+
+setorder(sentiment_dt_recipient, -score_mean)
 top_5            <- head(sentiment_dt_recipient$score_comb)[1:min(floor(unique_recipient/2), 5)]
-bottom_5         <- tail(sentiment_dt_recipient$score_comb)[min(floor(unique_recipient/2), 5):1]
+
+setorder(sentiment_dt_recipient, score_mean)
+bottom_5         <- head(sentiment_dt_recipient$score_comb)[1:min(floor(unique_recipient/2), 5)]
 
 # collapse
 top_5       <- paste0(top_5, collapse="\n")
