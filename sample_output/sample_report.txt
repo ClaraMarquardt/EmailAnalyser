@@ -1,0 +1,22 @@
+How am I Doing?
+
+* Overall Positivity: 0.5/1
+* Daily High:         0.73/1 (2017-07-13)
+* Daily Low:          0.46/1 (2017-07-22)
+
+* Recipients - Most Positive Emails:
+XXX@XXX.com (Pos. Score: 0.73 / Emails: 1)
+XXX@XXX.com (Pos. Score: 0.64 / Emails: 2)
+XXX@XXX.com (Pos. Score: 0.55 / Emails: 3)
+XXX@XXX.com (Pos. Score: 0.49 / Emails: 5)
+XXX@XXX.de  (Pos. Score: 0.49 / Emails: 1)
+
+* Recipients - Most Negative Emails:
+XXX@XXX.com (Pos. Score: 0.43 / Emails: 2)
+XXX@XXX.com (Pos. Score: 0.45 / Emails: 6)
+XXX@XXX.edu (Pos. Score: 0.47 / Emails: 7)
+XXX@XXX.edu (Pos. Score: 0.47 / Emails: 2)
+XXX@XXX.edu (Pos. Score: 0.47 / Emails: 1)
+
+# Time Period:        2017-07-12 to 2017-07-26
+# Emails Sent:        60

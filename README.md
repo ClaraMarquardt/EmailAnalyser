@@ -10,7 +10,7 @@ The tool can be executed in two modes:
 [2] _**Regular Schedule**_ - The tool prompts you once for a time interval over which emails are to be analyzed (e.g. 7 days or 14 days), the weekday on which the job is to be executed, and your email account details. Every week at noon on the selected weekday all emails sent over the specified time interval (e.g. over the past 7 days or the past 14 days) will be analyzed (in the background) and an email will be sent you with the report upon completion. 
 
 ##### **## Output**  
-The tool generates (a) a report providing you with an overview of your 'positivity score' by date and email recipient, (b) a visualization of your 'positivity score' over the analysis time interval and (c) (_only in 'On Demand' mode_) a text file with the the individual emails that were analyzed and their score 
+The tool generates (a) a report providing you with an overview of your 'positivity score' by date and email recipient, (b) a visualization of your 'positivity score' over the analysis time interval and (c) (_only in 'On Demand' mode_) a text file with the the individual emails that were analyzed and their score (Sample output is available here: )
 
 ##### **## Notes**  
 
@@ -18,7 +18,7 @@ The tool generates (a) a report providing you with an overview of your 'positivi
  
  - _Scoring Algorithm_: The sentiment analysis algorithm was trained on 1.3 million English-language tweets from which emojis had been removed -> The score assigned to non-English emails will not be meaningful & sentiment conveyed through emojis will not be captured. 
 
- - _Regular Schedule Execution Constraints_: 'Regular Schedule' mode execution requires that the computer is turned on and connected to the Internet at the time of job execution. Should the computer be turned off the job will be next executed the following week.  
+ - _Regular Schedule Execution Constraints_: 'Regular Schedule' mode execution (using Cron) requires that the computer is turned on and connected to the Internet at the time of job execution. Should the computer be turned off the job will be next executed the following week.  
 
 #### # SET-UP & EXECUTION
 
