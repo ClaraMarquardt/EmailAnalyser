@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # WD
 wd_path=$(pwd)
 
@@ -58,8 +60,8 @@ ${php_custom_path} -c ${php_custom_path_ini} -r "echo phpinfo();"
 printf "\n# SUCCESS - PHP successfully installed & configured"
 printf "\n# ----------------------\n"
 
-## R 
-## ----------------
+# R 
+# ----------------
 
 ## Homebrew
 printf "\n# Installing & Updating Homebrew (+ Command Line Tools)"
@@ -71,9 +73,30 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 echolog "# Homebrew Version: $(brew --version)"
 echolog "# Xcode: $(xcode-select --print-path)"
 
+## Homebrew reset
+printf "brew_reset: $brew_reset\n"
+
+if [ "$brew_reset" == "Yes" ]; then
+
+	printf "Homebrew Rest\n"
+
+	# initial status
+	brew list
+	brew doctor 
+
+	# remove all packages installed through homebrew
+	brew remove --force --ignore-dependencies $(brew list)
+
+	# fix potential gcc problem
+	brew install gcc
+	brew link --overwrite gcc
+
+fi
+
 ## Homebrew - update/clear up
 brew cleanup
 brew update
+brew doctor
 
 ## R
 printf "Installing R"
