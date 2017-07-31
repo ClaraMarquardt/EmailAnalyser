@@ -10,7 +10,7 @@ The tool can be executed in two modes:
 [2] _**Regular Schedule**_ - The tool prompts you once for a time interval over which emails are to be analyzed (e.g. 7 days or 14 days), the weekday on which the job is to be executed, and your email account details. Every week at noon on the selected weekday all emails sent over the specified time interval (e.g. over the past 7 days or the past 14 days) will be analyzed (in the background) and an email will be sent you with the report upon completion. 
 
 ##### **## Output**  
-The tool generates (a) a report providing you with an overview of your 'positivity score' by date and email recipient, (b) a visualization of your 'positivity score' over the analysis time interval and (c) (_only in 'On Demand' mode_) a text file with the the individual emails that were analyzed and their score (Sample output is available here: )
+The tool generates (a) a report providing you with an overview of your 'positivity score' by date and email recipient, (b) a visualization of your 'positivity score' over the analysis time interval and (c) (_only in 'On Demand' mode_) a text file with the the individual emails that were analyzed and their score (Sample output is available here: https://github.com/ClaraMarquardt/email_sentiment/tree/master/sample_output)
 
 ##### **## Notes**  
 
