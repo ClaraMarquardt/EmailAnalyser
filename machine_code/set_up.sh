@@ -78,7 +78,7 @@ printf "brew_reset: $brew_reset\n"
 
 if [ "$brew_reset" == "Yes" ]; then
 
-	printf "Homebrew Rest\n"
+	printf "Homebrew Reset\n"
 
 	# initial status
 	brew list

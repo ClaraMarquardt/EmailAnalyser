@@ -90,7 +90,7 @@ tool is to be executed
 ** 'Enter interval (days from date of execution) over which to parse emails (e.g. 7): ' - Enter the number of days 
 over which emails are to be parsed
 ** 'Enter email username (e.g. test@gmail.com):' / 'Enter email password' - Enter your gmail username and password 
-
+* When asked for a password - enter the root password (required to install the Cron job)
 ````
 
 
