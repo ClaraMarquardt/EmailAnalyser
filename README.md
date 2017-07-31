@@ -1,4 +1,4 @@
-####**How am I doing?** (_An Email-Based Sentiment Analysis Tool_)
+### **How am I doing?** (_An Email-Based Sentiment Analysis Tool_)
 
 #### # OVERVIEW
 
@@ -35,7 +35,7 @@ The tool is designed to run on MacOSx
 # Other
 * Gmail-based email account 
 * Terminal (Installed by Default / Tool is designed to be executed using bash (rather than e.g. zshrc))
-
+````
 
 ##### **## Set-up**  
 
