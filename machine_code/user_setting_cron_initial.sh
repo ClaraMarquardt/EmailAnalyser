@@ -23,7 +23,7 @@ read -p 'Enter weekday on which job is to be run (e.g. Sunday -> 0): ' weekday
 export weekday=${weekday}
 
 unset length
-read -p 'Enter interval (days from date of report) over which to parse emails (e.g. 7): ' length
+read -p 'Enter interval (days from date of execution) over which to parse emails (e.g. 7): ' length
 export length=${length}
 
 unset email_address

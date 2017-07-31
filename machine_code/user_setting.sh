@@ -19,7 +19,7 @@ printf "###\n\n"
 
 ## obtain user settings
 unset email_date
-read -p 'Enter earliest email date (e.g. 03-July-2017):' email_date
+read -p 'Enter the earliest email date (e.g. 03-July-2017):' email_date
 export email_date=${email_date}
 
 unset email_address
@@ -32,7 +32,7 @@ export email_pwd=${email_pwd}
 printf "\n"
 
 unset keep_log
-read -p 'Keep log files (Yes/No):' keep_log
+read -p 'Keep log files (Yes/No)? ' keep_log
 export keep_log=${keep_log}
 printf "\n"
 
