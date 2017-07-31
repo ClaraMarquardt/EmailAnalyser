@@ -5,18 +5,18 @@
 ##### **## Execution Modes**  
 The tool can be executed in two modes:  
 
-[1] _**On Demand**_ - The tool prompts you for a start date (e.g. yesterday or 2 weeks ago) and your email account details. All emails sent on/after the start date will be analyzed and a report will be stored in the 'output folder' upon completion (Note: Depending on how many emails are to be analyzed this may take some time). 
+[1] _**On Demand**_ - The tool prompts you for a start date (e.g. yesterday or 2 weeks ago) and your email account details. All emails sent on/after the start date will be analyzed and the analysis results will be stored in the 'output folder' upon completion (Note: Depending on how many emails are to be analyzed this may take some time). 
 
-[2] _**Regular Schedule**_ - The tool prompts you once for a time interval over which emails are to be analyzed (e.g. 7 days or 14 days), the weekday on which the job is to be executed, and your email account details. Every week at noon on the selected weekday all emails sent over the specified time interval (e.g. over the past 7 days or the past 14 days) will be analyzed (in the background) and an email will be sent you with the report upon completion. 
+[2] _**Regular Schedule**_ - The tool prompts you once for a time interval over which emails are to be analyzed (e.g. 7 days or 14 days), the weekday on which the job is to be executed, and your email account details. Every week at noon on the selected weekday all emails sent over the specified time interval (e.g. over the past 7 days or the past 14 days) will be analyzed (in the background) and an email will be sent to you with the analysis results upon completion. 
 
 ##### **## Output**  
-The tool generates (a) a report providing you with an overview of your 'positivity score' by date and email recipient, (b) a visualization of your 'positivity score' over the analysis time interval and (c) (_only in 'On Demand' mode_) a text file with the the individual emails that were analyzed and their score (Sample output is available here: https://github.com/ClaraMarquardt/email_sentiment/tree/master/sample_output)
+The tool generates (a) a report providing you with an overview of your 'positivity score' by date and email recipient, (b) a visualization of your 'positivity score' over the analysis time interval and (c) (_only in 'On Demand' mode_) a text file with the individual emails that were analyzed and their score (Sample output is available here: https://github.com/ClaraMarquardt/email_sentiment/tree/master/sample_output)
 
 ##### **## Notes**  
 
- - _Privacy & Security_: All email analysis is done locally, i.e. no emails leave the machine on which the tool is executed. The email account details are used to download the emails to the local machine (through an IMAP connection) where the analysis is performed. Upon completion of the analysis all emails are  deleted. In 'Regular Schedule' mode the account details need to be stored (so as to allow the tool to run without user input) - the credential are stored (in the tool directory) in a text file which is root-password protected. 
+ - _Privacy & Security_: All email analysis is performed locally, i.e. no emails leave the machine on which the tool is executed. The email account details are used to download the emails to the local machine (through an IMAP connection) where they are analyzed. Upon completion of the analysis all emails are  deleted. In 'Regular Schedule' mode the account credentials need to be stored (so as to allow the tool to run without user input) - the credentials are stored (in the tool directory) in a text file which is root-password protected. 
  
- - _Scoring Algorithm_: The sentiment analysis algorithm was trained on 1.3 million English-language tweets from which emojis had been removed -> The score assigned to non-English emails will not be meaningful & sentiment conveyed through emojis will not be captured. 
+ - _Scoring Algorithm_: The sentiment analysis algorithm was trained on 1.3 million English-language tweets from which emojis had been removed -> (i) The score assigned to non-English emails will not be meaningful and (ii) sentiment conveyed through emojis will not be captured. 
 
  - _Regular Schedule Execution Constraints_: 'Regular Schedule' mode execution (using Cron) requires that the computer is turned on and connected to the Internet at the time of job execution. Should the computer be turned off the job will be next executed the following week.  
 
@@ -25,12 +25,12 @@ The tool generates (a) a report providing you with an overview of your 'positivi
 ##### **## Requirements & Dependencies**  
 
 ````
-The tool is designed to run on MacOSx
+The tool is designed to run on MacOSx (Testing has been performed on MaxOSx Sierra and El Capitan)
 
 # Key
-* R & Set of R Packages (Installed as part of set-up process)
-* PHP with imap support (Installed as part of set-up process)
-* _Base Dependencies_: Homebrew, Xcode (command line tools), gcc  (Installed as part of set-up process)
+* R & Set of R Packages (Installed as part of the set-up process)
+* php with imap support (Installed as part of the set-up process)
+* Base Dependencies: Homebrew, Xcode (command line tools), gcc (Installed as part of the set-up process)
 
 # Other
 * Gmail-based email account 
@@ -45,18 +45,17 @@ Download the most up-to date version of the tool: https://drive.google.com/open?
 
 # [2] Execute the set-up script (! Ensure that no spaces are appended to the end of the command)
 cd [local path]/email_sentiment 
-source code/machine_code/set_up_wrapper.sh  && source code/machine_code/set_up.sh > log/set_up.txt 2>&1 
+source code/machine_code/set_up_wrapper.sh && source code/machine_code/set_up.sh > log/set_up.txt 2>&1 
 
 ## Notes:
 * You will need to be connected to the Internet during the set-up process
-* When asked whether to complete a Homebrew reset - enter 'No' 
-unless you encounter problems during set-up  in which case it may 
-help to rerun the set-up script with a Homebrew reset (enter 'Yes')
+* When asked whether to complete a Homebrew reset - enter 'No' unless you encounter problems during 
+set-up in which case it may help to re-run the set-up script with a Homebrew reset (enter 'Yes')
 * When asked for a password - enter the root password (required to install php)
-* Depending on whether or not e.g. Xcode (command line tools), are already 
-installed installation may take up to 30 minutes
+* Depending on whether or not e.g. Xcode (command line tools), are already installed installation may 
+take up to 30 minutes
 
-# [3] Ensure that your email account supports an imap connection from an external PHP client
+# [3] Ensure that your email account supports an imap connection from an external php client
 Visit: https://myaccount.google.com/lesssecureapps
 
 ````
