@@ -69,8 +69,8 @@ source code/machine_code/execution_master.sh
 
 ## Notes:
 * You will be asked a number of questions:
-** 'Enter the earliest email date (e.g. 03-July-2017):' - Enter the earliest date from which 
-emails are to be analyzed (date must be entered in the suggested format)
+** 'Enter the earliest email date (e.g. 03-July-2017):' - Enter the earliest date from which emails are to be 
+analyzed (date must be entered in the suggested format)
 ** 'Enter email username (e.g. test@gmail.com):' / 'Enter email password' - Enter your gmail username and password 
 ** 'Keep log files (Yes/No):' - Enter 'No' unless you wish to keep the log files generated 
 during execution (e.g. for the purposes of debugging)
@@ -85,10 +85,10 @@ source code/machine_code/execution_master_cron_initial.sh
 
 ## Notes:
 * You will be asked a number of questions:
-** 'Enter weekday on which job is to be run (e.g. Sunday -> 0):'  - Enter the weekday (number) 
-on which the tool is to be executed
-** 'Enter interval (days from date of execution) over which to parse emails (e.g. 7): ' - Enter 
-the number of days over which emails are to be parsed
+** 'Enter weekday on which job is to be run (e.g. Sunday -> 0):'  - Enter the weekday (number) on which the 
+tool is to be executed
+** 'Enter interval (days from date of execution) over which to parse emails (e.g. 7): ' - Enter the number of days 
+over which emails are to be parsed
 ** 'Enter email username (e.g. test@gmail.com):' / 'Enter email password' - Enter your gmail username and password 
 
 ````
