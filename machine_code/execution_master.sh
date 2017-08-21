@@ -1,104 +1,65 @@
 #----------------------------------------------------------------------------#
 
-# Purpose:     Master Execution Script
+# Purpose:     Master Execution Script 
 # Author:      CM
-# Date:        July 2017
+# Date:        Jan 2017
 # Language:    Shell (.sh)
 
 #----------------------------------------------------------------------------#
 
 # Settings
 #----------------------------------------------------------------------------#
-printf "\n# Initialising\n\n"
-source code/machine_code/setting.sh 
+source code_base/machine_code/setting.sh
 
-printf "\n# Settings\n\n"
-source code/machine_code/user_setting.sh 
-
+# Clear up output folder & log folder
 #----------------------------------------------------------------------------#
-#                         Step-by-Step Tool Execution                        #
+find ${wd_path_output} -type d -maxdepth 1 \( -name "*output_*" \) -exec mv {} ${wd_path_output}/archived/ \;
+find ${wd_path_log}/ -type f -maxdepth 1 \( -name "*txt*" -or -name "*Rout*" \) -exec mv {} ${wd_path_log}/archived/ \;
+
+# User input
 #----------------------------------------------------------------------------#
+export mode=`$CD dropdown --title "Email Analyser" \
+--text "Interactive mode or regular, scheduled execution?" \
+--items "Interactive Mode" "Regular, scheduled execution" --button1 "Start" \
+--button2 "Exit" --button3 "Reset Application"`
 
-#----------------------------------------------------------------------------#
-#----------------------------------------------------------------------------#
-# Execution Commmand #1
-#----------------------------------------------------------------------------#
-#----------------------------------------------------------------------------#
+if [ "${mode:0:1}" = "2" ]; then
 
-# Stage-a: Obtain emails
-#----------------------------------------------------------------------------#
-printf "\n# Obtaining Emails\n"
+	printf "Exit"
 
-# execute
-#---------------------------------------------------#
-cd ${wd_path_code}/stage_a
-${php_custom_path} -c ${php_custom_path_ini} -f "email_extract.php"
+	exit;
 
-# Stage-b (i): Process emails
-#----------------------------------------------------------------------------#
-printf "\n# Classifying Emails\n"
+elif [ "${mode:0:1}" = "3" ]; then
 
-# execute
-#---------------------------------------------------#
-cd ${wd_path_code}/stage_b
+	printf "Reset App"
 
-## classify
-R CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_train} \
-${data_path_raw_outbox} ${data_path_temp} ${wd_path_log} ${wd_path_model}" classify.R \
-${wd_path_log}/classify_${execution_id}.Rout
+	source code_base/machine_code/reset.sh
 
-## delete output file
-[ -e .RData ] && rm .RData
+else
 
-# Stage-b (ii): Aggregate output
-#----------------------------------------------------------------------------#
-printf "\n# Generating Report\n"
+	export mode=${mode:2}
 
-# execute
-#---------------------------------------------------#
-cd ${wd_path_code}/stage_b
+	echo $mode
 
-## aggregate
-R CMD BATCH --no-save "--args ${init_path} ${execution_id} ${data_path_temp} \
-${wd_path_helper_email} ${wd_path_log} ${email_address}" aggregate.R ${wd_path_log}/aggregate_${execution_id}.Rout
-
-## delete output file
-[ -e .RData ] && rm .RData
-
-# Stage-b (iii): Clear 
-#----------------------------------------------------------------------------#
-printf "\n# Clearing Data\n"
-
-## delete all emails
-cd ${data_path_raw_outbox}
-rm email*txt
-
-## create output folder
-mkdir ${wd_path_output}/output_${current_date}_${execution_id}
-
-## move output to location & delete all data
-cd ${data_path_temp}
-mv *mean_plot_${execution_id}* ${wd_path_output}/output_${current_date}_${execution_id}/how_am_I_doing_plot_${current_date}.pdf
-mv *report_${execution_id}* ${wd_path_output}/output_${current_date}_${execution_id}/how_am_I_doing_report_${current_date}.txt
-rm *${execution_id}*
-
-## delete log files
-cd ${wd_path_log}
-cp classify_${execution_id}*txt ${wd_path_output}/output_${current_date}_${execution_id}/how_am_I_doing_log_${current_date}.txt
-if [ "${keep_log}" == "No" ]; then
-	cd ${wd_path_log}
-	rm *${execution_id}*
-else 
-	printf "\n# Log files kept - See ${wd_path_log}\n"
 fi
 
-
-# Stage-d: Output
+# Execute
 #----------------------------------------------------------------------------#
-printf "\n# Completed - See the report & graph at ${wd_path_output}/output_${current_date}_${execution_id}/\n"
-cd ${wd_path}
+
+if [ "$mode" = "0" ]; then
+
+	printf "Starting: Interactive Mode"
+
+	source code_base/machine_code/execution_master_interactive.sh
+
+elif [ "$mode" = "1" ]; then
+
+	printf "Starting: Regular/Scheduled Mode"
+
+	source code_base/machine_code/execution_master_cron_initial.sh
+
+fi
 
 #----------------------------------------------------------------------------#
 #                                    End                                     #
 #----------------------------------------------------------------------------#
-

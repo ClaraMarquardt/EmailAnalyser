@@ -1,12 +1,7 @@
-# R init
-
-# check if update
-if (!("upgrade" %in% ls())) {
-  upgrade <- commandArgs(trailingOnly = TRUE)[1]
-}
+# R dependencies
 
 # ---------------------------------------
-# external dependencies
+# external dependencies - functions
 # ---------------------------------------
 
 ## ehR - load or install function
@@ -22,7 +17,7 @@ load_or_install <- function(package_names, verbose=FALSE, upgrade=FALSE) {
 
     print("Updating Packages")
 
-    tryCatch({update.packages(ask = FALSE, repos = "http://cran.cnr.berkeley.edu/", 
+    tryCatch({update.packages(ask = FALSE, repos = "https://cran.rstudio.com", 
       checkBuilt = TRUE, type="source")}, error=function(e) {print("Package update failed")})
   
   }
@@ -36,7 +31,7 @@ load_or_install <- function(package_names, verbose=FALSE, upgrade=FALSE) {
        print(sprintf("Fresh Install: %s", x))
     
        suppressMessages(install.packages(x,
-        repos="http://cran.cnr.berkeley.edu/", 
+        repos="https://cran.rstudio.com", 
         type="source"))
 
   })
@@ -56,10 +51,10 @@ load_or_install <- function(package_names, verbose=FALSE, upgrade=FALSE) {
 } 
 
 # ---------------------------------------
-# external dependencies
+# external dependencies - execute
 # ---------------------------------------
-package_list <-list("data.table", "glmnet","text2vec","ggplot2")
-load_or_install(package_names=package_list, upgrade=upgrade)
+package_list <- list("data.table", "glmnet","text2vec","ggplot2")
+load_or_install(package_names=package_list, upgrade=FALSE)
 
 # ---------------------------------------
 # embedded dependencies

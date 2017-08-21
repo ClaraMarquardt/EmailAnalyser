@@ -34,7 +34,6 @@ start_time   <- Sys.time()
 
 # dependencies
 #-------------------------------------------------#
-upgrade <- FALSE
 source(paste0(init_path, "/R_init.R"))
 
 # parameters / helpers

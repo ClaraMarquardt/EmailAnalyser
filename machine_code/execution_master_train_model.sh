@@ -10,7 +10,7 @@
 # Settings
 #----------------------------------------------------------------------------#
 printf "\n# Initialising\n\n"
-source code/machine_code/setting.sh   ## master settings
+source code_base/machine_code/setting.sh   ## master settings
 
 #----------------------------------------------------------------------------#
 #                         Step-by-Step Tool Execution                        #

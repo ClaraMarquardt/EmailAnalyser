@@ -98,6 +98,10 @@ brew cleanup
 brew update
 brew doctor
 
+## Wget & Gawk (key helpers)
+brew uninstall --force wget gawk 
+brew install wget gawk 
+
 ## R
 printf "Installing R"
 printf "\n# ----------------------\n"
@@ -121,7 +125,8 @@ printf "\n# ----------------------\n"
 
 cd ${wd_path}
 R CMD BATCH --no-save "--args TRUE" \
-${wd_path}/code/helper_code/R_init.R ${wd_path}/log/R_init.Rout
+R CMD BATCH --no-save ${wd_path}/documentation_setup/installer/R_dependency.R \
+	${wd_path}/documentation_setup/installer/R_dependency.Rout
 
 printf "\n# SUCCESS - R successfully installed & configured"
 printf "\n# ----------------------\n"

@@ -33,7 +33,6 @@ sink(paste0(log_path, "/aggregate_", execution_id,".txt"), append=FALSE, split=F
 
 # dependencies
 #-------------------------------------------------#
-upgrade <- FALSE
 source(paste0(init_path, "/R_init.R"))
 
 # parameters / helpers
