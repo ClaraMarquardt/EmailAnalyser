@@ -2,7 +2,7 @@
 
 _Current Version: V0.7 (August 18th 2017)_
 
-- Application Repository: hhttps://drive.google.com/open?id=0B8_7JE9uq-iDZkNpbmtSZEZnQ28
+- Application Repository: https://drive.google.com/open?id=0B8_7JE9uq-iDZkNpbmtSZEZnQ28
 - Application Code Repository: https://github.com/ClaraMarquardt/EmailAnalyser
 
 #### # OVERVIEW
